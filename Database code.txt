@@ -1,0 +1,63 @@
+-- 1. Create Database
+CREATE DATABASE MyCoursework;
+SHOW DATABASES;
+USE MyCoursework;
+
+-- 2. Create Guest Table
+CREATE TABLE Guest (
+    Guest_Id INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50),
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    Affiliation VARCHAR(50),
+    Title VARCHAR(20)
+);
+DESC Guest;
+
+-- 3. Create Session Table
+CREATE TABLE Session (
+    Session_Id INT AUTO_INCREMENT PRIMARY KEY,
+    Date DATE,
+    Time TIME,
+    Type VARCHAR(50),
+    Exhibition_Title VARCHAR(100)
+);
+DESC Session;
+
+-- 4. Create Seat Table
+CREATE TABLE Seat (
+    Seat_Id INT AUTO_INCREMENT PRIMARY KEY,
+    Seat_Label VARCHAR(100),
+    Section VARCHAR(50),
+    Price INT,
+    Availability BOOLEAN
+);
+DESC Seat;
+
+-- 5. Create Reservation Table
+CREATE TABLE Reservation (
+    Reservation_Id INT AUTO_INCREMENT PRIMARY KEY,
+    Guest_Id INT,
+    Session_Id INT,
+    Seat_Id INT,
+    Reservation_Time DATETIME,
+    Payment_Status VARCHAR(20),
+    Amount_Paid INT,
+    FOREIGN KEY (Guest_Id) REFERENCES Guest(Guest_Id),
+    FOREIGN KEY (Session_Id) REFERENCES Session(Session_Id),
+    FOREIGN KEY (Seat_Id) REFERENCES Seat(Seat_Id)
+);
+DESC Reservation;
+
+-- 6. Sample Insert into Seat Table
+INSERT INTO Seat (Seat_Label, Section, Price, Availability) VALUES
+('A1-A30, B1-B30, C1-C30, D1-D30, E1-E30, F1-F30', 'Front Section', 150000, 1),
+('G1-G30, H1-H30, I1-I30, J1-J30, K1-K30, L1-L30', 'Middle Section', 75000, 1),
+('AA1-30, BB1-30, CC1-30, DD1-28, EE1-24, FF1-24', 'Balcony Section', 35000, 1),
+('X1-16', 'VIP BOX', 350000, 1);
+
+-- 7. View Records
+SELECT * FROM Guest;
+SELECT * FROM Session;
+SELECT * FROM Seat;
+SELECT * FROM Reservation;
